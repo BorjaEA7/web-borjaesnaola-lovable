@@ -183,7 +183,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Scrolling Logos Section */}
+        {/* Scrolling Logos Section - Two rows moving in opposite directions */}
         <div className="mt-20 overflow-hidden">
           {/* First row - moves right when scrolling down */}
           <div 

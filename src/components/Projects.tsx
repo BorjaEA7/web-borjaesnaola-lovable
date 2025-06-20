@@ -113,7 +113,7 @@ const Projects = () => {
   };
 
   return (
-    <section ref={sectionRef} id="proyectos" className="zaguan-section">
+    <section ref={sectionRef} id="proyectos" className="zaguan-section bg-gray-50">
       <div className="zaguan-container">
         {/* Header */}
         <div
@@ -163,7 +163,9 @@ const Projects = () => {
           {filteredProjects.map((project, index) => (
             <div
               key={project.id}
-              className="relative overflow-hidden rounded-2xl cursor-pointer group h-80 animate-fade-up"
+              className={`relative overflow-hidden rounded-2xl cursor-pointer group h-80 transition-all duration-800 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
               style={{ 
                 animationDelay: `${index * 0.1}s`,
                 backgroundImage: `url(${project.image})`,
