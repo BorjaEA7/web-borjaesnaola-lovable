@@ -1,11 +1,27 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// Logo data with placeholder PNG URLs
+const logos = [
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo1",
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo2", 
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo3",
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo4",
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo5",
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo6",
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo7",
+  "https://via.placeholder.com/120x60/f5f5f5/737373?text=Logo8",
+];
+
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [quoteVisible, setQuoteVisible] = useState(false);
+  const [typewriterText, setTypewriterText] = useState("");
+  const [scrollY, setScrollY] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
   const quoteRef = useRef<HTMLDivElement>(null);
+
+  const fullQuote = "El espacio debe ser el sirviente de la vida, no su tirano. Cada proyecto es una oportunidad de crear no solo un lugar, sino una experiencia que trascienda lo puramente funcional.";
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,6 +55,33 @@ const About = () => {
     }
 
     return () => quoteObserver.disconnect();
+  }, []);
+
+  // Typewriter effect
+  useEffect(() => {
+    if (quoteVisible) {
+      let index = 0;
+      const timer = setInterval(() => {
+        if (index < fullQuote.length) {
+          setTypewriterText(fullQuote.slice(0, index + 1));
+          index++;
+        } else {
+          clearInterval(timer);
+        }
+      }, 50);
+
+      return () => clearInterval(timer);
+    }
+  }, [quoteVisible, fullQuote]);
+
+  // Scroll effect for logos
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -118,7 +161,7 @@ const About = () => {
           </div>
         </div>
 
-        {/* Animated Quote */}
+        {/* Animated Quote with Typewriter Effect */}
         <div
           ref={quoteRef}
           className={`mt-20 text-center transition-all duration-1000 ${
@@ -128,14 +171,62 @@ const About = () => {
           }`}
         >
           <div className="max-w-4xl mx-auto">
-            <blockquote className="text-2xl lg:text-3xl font-zaguan-serif font-medium text-zaguan-800 italic leading-relaxed mb-6">
-              "El espacio debe ser el sirviente de la vida, no su tirano. 
-              Cada proyecto es una oportunidad de crear no solo un lugar, 
-              sino una experiencia que trascienda lo puramente funcional."
+            <blockquote className="text-2xl lg:text-3xl font-zaguan-serif font-medium text-zaguan-800 italic leading-relaxed mb-6 min-h-[120px] flex items-center justify-center">
+              "{typewriterText}"
+              {quoteVisible && typewriterText.length < fullQuote.length && (
+                <span className="animate-pulse">|</span>
+              )}
             </blockquote>
             <cite className="text-zaguan-600 font-medium not-italic">
               — Filosofía Zaguan Estudio
             </cite>
+          </div>
+        </div>
+
+        {/* Scrolling Logos Section */}
+        <div className="mt-20 overflow-hidden">
+          {/* First row - moves right when scrolling down */}
+          <div 
+            className="flex gap-8 mb-8 whitespace-nowrap"
+            style={{
+              transform: `translateX(${scrollY * 0.5}px)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
+            {[...logos, ...logos].map((logo, index) => (
+              <div 
+                key={`top-${index}`} 
+                className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-zaguan-200 p-4 hover:shadow-md transition-shadow duration-300"
+              >
+                <img 
+                  src={logo} 
+                  alt={`Logo ${index + 1}`} 
+                  className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Second row - moves left when scrolling down */}
+          <div 
+            className="flex gap-8 whitespace-nowrap"
+            style={{
+              transform: `translateX(${-scrollY * 0.5}px)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
+            {[...logos, ...logos].map((logo, index) => (
+              <div 
+                key={`bottom-${index}`} 
+                className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-zaguan-200 p-4 hover:shadow-md transition-shadow duration-300"
+              >
+                <img 
+                  src={logo} 
+                  alt={`Logo ${index + 1}`} 
+                  className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </div>

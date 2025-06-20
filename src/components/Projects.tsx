@@ -163,7 +163,7 @@ const Projects = () => {
           {filteredProjects.map((project, index) => (
             <div
               key={project.id}
-              className={`relative overflow-hidden rounded-2xl cursor-pointer group h-80 animate-fade-up`}
+              className="relative overflow-hidden rounded-2xl cursor-pointer group h-80 animate-fade-up"
               style={{ 
                 animationDelay: `${index * 0.1}s`,
                 backgroundImage: `url(${project.image})`,
