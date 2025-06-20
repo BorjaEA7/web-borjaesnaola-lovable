@@ -3,7 +3,9 @@ import { useEffect, useRef, useState } from "react";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [quoteVisible, setQuoteVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const quoteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,11 +24,28 @@ const About = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const quoteObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setQuoteVisible(true);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (quoteRef.current) {
+      quoteObserver.observe(quoteRef.current);
+    }
+
+    return () => quoteObserver.disconnect();
+  }, []);
+
   return (
     <section
       ref={sectionRef}
       id="nosotros"
-      className="zaguan-section bg-zaguan-50"
+      className="zaguan-section bg-white"
     >
       <div className="zaguan-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -96,6 +115,27 @@ const About = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
             </div>
+          </div>
+        </div>
+
+        {/* Animated Quote */}
+        <div
+          ref={quoteRef}
+          className={`mt-20 text-center transition-all duration-1000 ${
+            quoteVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-12"
+          }`}
+        >
+          <div className="max-w-4xl mx-auto">
+            <blockquote className="text-2xl lg:text-3xl font-zaguan-serif font-medium text-zaguan-800 italic leading-relaxed mb-6">
+              "El espacio debe ser el sirviente de la vida, no su tirano. 
+              Cada proyecto es una oportunidad de crear no solo un lugar, 
+              sino una experiencia que trascienda lo puramente funcional."
+            </blockquote>
+            <cite className="text-zaguan-600 font-medium not-italic">
+              — Filosofía Zaguan Estudio
+            </cite>
           </div>
         </div>
       </div>
