@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,25 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Colores personalizados para Zaguan Estudio
+				'zaguan': {
+					'50': '#fafafa',
+					'100': '#f5f5f5',
+					'200': '#e5e5e5',
+					'300': '#d4d4d4',
+					'400': '#a3a3a3',
+					'500': '#737373',
+					'600': '#525252',
+					'700': '#404040',
+					'800': '#262626',
+					'900': '#171717',
+					'950': '#0a0a0a'
 				}
+			},
+			fontFamily: {
+				'zaguan': ['Inter', 'system-ui', 'sans-serif'],
+				'zaguan-serif': ['Playfair Display', 'serif']
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +103,44 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(20px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'fade-up': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(30px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'scale(0.9)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.6s ease-out',
+				'fade-up': 'fade-up 0.8s ease-out',
+				'scale-in': 'scale-in 0.5s ease-out'
 			}
 		}
 	},
