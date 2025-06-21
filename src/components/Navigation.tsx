@@ -38,7 +38,7 @@ const Navigation = () => {
             onClick={() => scrollToSection("home")}
             className="text-2xl lg:text-3xl font-zaguan-serif font-medium text-zaguan-900 hover:text-zaguan-700 transition-colors duration-200"
           >
-            Zaguan Estudio
+            Borja Esnaola
           </button>
 
           {/* Desktop Navigation */}

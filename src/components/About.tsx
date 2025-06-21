@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Linkedin } from "lucide-react";
 
@@ -141,7 +140,7 @@ const About = () => {
     <section
       ref={sectionRef}
       id="nosotros"
-      className="zaguan-section bg-white"
+      className="zaguan-section bg-white overflow-hidden"
     >
       <div className="zaguan-container">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
@@ -259,16 +258,16 @@ const About = () => {
               )}
             </blockquote>
             <cite className="text-zaguan-600 font-medium not-italic">
-              — Filosofía Zaguan Estudio
+              — Filosofía Borja Esnaola
             </cite>
           </div>
         </div>
 
         {/* Scrolling Logos Section - Two rows moving in opposite directions */}
-        <div className="mt-20 overflow-hidden">
+        <div className="mt-20 overflow-hidden w-full">
           {/* First row - moves right when scrolling down */}
           <div 
-            className="flex gap-8 mb-8 whitespace-nowrap"
+            className="flex gap-8 mb-8 w-max"
             style={{
               transform: `translateX(${scrollY * 0.5}px)`,
               transition: 'transform 0.1s ease-out'
@@ -290,7 +289,7 @@ const About = () => {
 
           {/* Second row - moves left when scrolling down */}
           <div 
-            className="flex gap-8 whitespace-nowrap"
+            className="flex gap-8 w-max"
             style={{
               transform: `translateX(${-scrollY * 0.5}px)`,
               transition: 'transform 0.1s ease-out'

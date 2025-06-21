@@ -55,12 +55,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-zaguan;
+    @apply bg-background text-foreground font-zaguan overflow-x-hidden;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 }
 
