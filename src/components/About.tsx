@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { Linkedin } from "lucide-react";
 
@@ -143,6 +144,17 @@ const About = () => {
       className="zaguan-section bg-white overflow-hidden"
     >
       <div className="zaguan-container">
+        {/* Section Title - Centered */}
+        <div className="text-center mb-16">
+          <h2 className="zaguan-heading text-zaguan-900 mb-6">
+            Nosotros
+          </h2>
+          <p className="zaguan-subheading max-w-3xl mx-auto">
+            Somos un estudio de arquitectura e interiorismo con más de 15
+            años de experiencia creando espacios únicos y funcionales.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16 items-start">
           {/* Profile Image */}
           <div
@@ -178,15 +190,7 @@ const About = () => {
                 : "opacity-0 translate-x-8"
             }`}
           >
-            <h2 className="zaguan-heading text-zaguan-900 mb-6">
-              Nosotros
-            </h2>
             <div className="space-y-6">
-              <p className="zaguan-subheading">
-                Somos un estudio de arquitectura e interiorismo con más de 15
-                años de experiencia creando espacios únicos y funcionales que
-                reflejan la personalidad de nuestros clientes.
-              </p>
               <p className="text-zaguan-600 leading-relaxed">
                 Nuestro enfoque se basa en la comprensión profunda de las
                 necesidades de cada proyecto, combinando funcionalidad,
@@ -229,7 +233,7 @@ const About = () => {
             { key: "projects", number: projectsCount, suffix: "+", label: "Proyectos" },
             { key: "years", number: yearsCount, suffix: "+", label: "Años" },
             { key: "satisfaction", number: satisfactionCount, suffix: "%", label: "Satisfacción" },
-          ].map((stat, index) => (
+          ].map((stat) => (
             <div key={stat.key} className="text-center">
               <div className="text-3xl lg:text-4xl font-zaguan-serif font-medium text-zaguan-900 mb-2">
                 {stat.number}{stat.suffix}
@@ -265,7 +269,7 @@ const About = () => {
 
         {/* Scrolling Logos Section - Two rows moving in opposite directions */}
         <div className="mt-20 overflow-hidden w-full">
-          {/* First row - moves right when scrolling down */}
+          {/* First row - moves right when scrolling down, repeats first 4 logos */}
           <div 
             className="flex gap-8 mb-8 w-max"
             style={{
@@ -273,21 +277,24 @@ const About = () => {
               transition: 'transform 0.1s ease-out'
             }}
           >
-            {[...logos, ...logos].map((logo, index) => (
-              <div 
-                key={`top-${index}`} 
-                className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-zaguan-200 p-4 hover:shadow-md transition-shadow duration-300"
-              >
-                <img 
-                  src={logo} 
-                  alt={`Logo ${index + 1}`} 
-                  className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
-                />
-              </div>
-            ))}
+            {/* Repeat first 4 logos multiple times for infinite effect */}
+            {Array.from({ length: 6 }, (_, repetition) => 
+              logos.slice(0, 4).map((logo, index) => (
+                <div 
+                  key={`top-${repetition}-${index}`} 
+                  className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-zaguan-200 p-4 hover:shadow-md transition-shadow duration-300"
+                >
+                  <img 
+                    src={logo} 
+                    alt={`Logo ${index + 1}`} 
+                    className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
+              ))
+            )}
           </div>
 
-          {/* Second row - moves left when scrolling down */}
+          {/* Second row - moves left when scrolling down, repeats last 4 logos */}
           <div 
             className="flex gap-8 w-max"
             style={{
@@ -295,18 +302,21 @@ const About = () => {
               transition: 'transform 0.1s ease-out'
             }}
           >
-            {[...logos, ...logos].map((logo, index) => (
-              <div 
-                key={`bottom-${index}`} 
-                className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-zaguan-200 p-4 hover:shadow-md transition-shadow duration-300"
-              >
-                <img 
-                  src={logo} 
-                  alt={`Logo ${index + 1}`} 
-                  className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
-                />
-              </div>
-            ))}
+            {/* Repeat last 4 logos multiple times for infinite effect */}
+            {Array.from({ length: 6 }, (_, repetition) => 
+              logos.slice(4, 8).map((logo, index) => (
+                <div 
+                  key={`bottom-${repetition}-${index}`} 
+                  className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-zaguan-200 p-4 hover:shadow-md transition-shadow duration-300"
+                >
+                  <img 
+                    src={logo} 
+                    alt={`Logo ${index + 5}`} 
+                    className="h-12 w-auto opacity-60 hover:opacity-100 transition-opacity duration-300"
+                  />
+                </div>
+              ))
+            )}
           </div>
         </div>
       </div>
